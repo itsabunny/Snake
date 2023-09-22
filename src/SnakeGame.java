@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.*;
 
-public class SnakeGame extends JPanel implements ActionListener, KeyListener{
+public class SnakeGame extends JPanel implements ActionListener, KeyListener {
     private class Tile {
         int x;
         int y;
@@ -19,27 +19,29 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener{
     int boardHeight;
     int tileSize = 25;
 
-    //Snake
+    // Snake
     Tile snakeHead;
 
-    //Food
+    // Food
     Tile food;
     Random random;
 
-    //game logic
+    // game logic
     Timer gameLoop;
     int velocityX;
     int velocityY;
 
-    SnakeGame(int boardWidth, int boardHeight){
+    SnakeGame(int boardWidth, int boardHeight) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
         setPreferredSize(new Dimension(this.boardWidth, this.boardHeight));
         setBackground(Color.BLACK);
+        addKeyListener(this);
+        setFocusable(true);
 
-        snakeHead = new Tile(5,5);
+        snakeHead = new Tile(5, 5);
 
-        food = new Tile(10,10);
+        food = new Tile(10, 10);
         random = new Random();
         placeFood();
 
@@ -51,35 +53,35 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener{
 
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         draw(g);
     }
 
-    public void draw(Graphics g){
-        //Grid
-        for (int i = 0; i < boardWidth/tileSize;i++){
-            //(x1, y1, x2, y2)
-            g.drawLine(i*tileSize,0,i*tileSize, boardHeight);
-            g.drawLine(0,i*tileSize,boardWidth,i*tileSize);
+    public void draw(Graphics g) {
+        // Grid
+        for (int i = 0; i < boardWidth / tileSize; i++) {
+            // (x1, y1, x2, y2)
+            g.drawLine(i * tileSize, 0, i * tileSize, boardHeight);
+            g.drawLine(0, i * tileSize, boardWidth, i * tileSize);
         }
 
-        //Food
+        // Food
         g.setColor(Color.RED);
-        g.fillRect(food.x*tileSize,food.y*tileSize, tileSize, tileSize);
+        g.fillRect(food.x * tileSize, food.y * tileSize, tileSize, tileSize);
 
-        //Snake
+        // Snake
         g.setColor(Color.GREEN);
-        g.fillRect(snakeHead.x*tileSize,snakeHead.y*tileSize,tileSize,tileSize);
+        g.fillRect(snakeHead.x * tileSize, snakeHead.y * tileSize, tileSize, tileSize);
     }
 
-    public void placeFood(){
-        food.x = random.nextInt(boardWidth/tileSize);  // 600/25=24
-        food.y = random.nextInt(boardHeight/tileSize);
+    public void placeFood() {
+        food.x = random.nextInt(boardWidth / tileSize); // 600/25=24
+        food.y = random.nextInt(boardHeight / tileSize);
     }
 
-    public void move(){
-        //Snake Head
+    public void move() {
+        // Snake Head
         snakeHead.x += velocityX;
         snakeHead.y += velocityY;
     }
@@ -92,13 +94,26 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            velocityX = 0;
+            velocityY = -1;
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            velocityX = 0;
+            velocityY = 1;
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            velocityX = -1;
+            velocityY = 0;
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            velocityX = 1;
+            velocityY = 0;
+        }
     }
 
-    @Override  //don't need this
-    public void keyTyped(KeyEvent e) {}
+    @Override // don't need this
+    public void keyTyped(KeyEvent e) {
+    }
 
-    @Override  //don't need this
-    public void keyReleased(KeyEvent e) {}
+    @Override // don't need this
+    public void keyReleased(KeyEvent e) {
+    }
 }
