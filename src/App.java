@@ -2,8 +2,8 @@ import javax.swing.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        int boardWidth = 600; // set the width of the board
-        int boardHeight = boardWidth; // make the board a square
+        int boardWidth = 1200; // set the width of the board
+        int boardHeight = 800; // make the board a square
 
         JFrame frame = new JFrame("Snake"); // create a frame
         frame.setVisible(true); // make the frame visible

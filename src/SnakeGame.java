@@ -80,6 +80,19 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
         // Snake Body
         for (int i = 0; i < snakeBody.size(); i++) {
             Tile snakePart = snakeBody.get(i);
+            if (i % 6 == 0) {
+                g.setColor(new Color(255, 0, 0)); // Red
+            } else if (i % 6 == 1) {
+                g.setColor(new Color(255, 165, 0)); // Orange
+            } else if (i % 6 == 2) {
+                g.setColor(new Color(255, 255, 0)); // Yellow
+            } else if (i % 6 == 3) {
+                g.setColor(new Color(0, 128, 0)); // Green
+            } else if (i % 6 == 4) {
+                g.setColor(new Color(0, 0, 255)); // Blue
+            } else {
+                g.setColor(new Color(128, 0, 128)); // Purple
+            }
             g.fillRect(snakePart.x * tileSize, snakePart.y * tileSize, tileSize, tileSize);
         }
     }
@@ -134,6 +147,11 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
             if (collision(snakeHead, snakePart)) {
                 gameOver = true;
             }
+        }
+        // display game over message
+        if (gameOver) {
+            JOptionPane.showMessageDialog(this, "Game Over!");
+            gameLoop.stop();
         }
     }
 
